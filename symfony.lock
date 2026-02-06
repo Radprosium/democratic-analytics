@@ -47,6 +47,18 @@
             ".php-cs-fixer.dist.php"
         ]
     },
+    "php-http/discovery": {
+        "version": "1.20",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.18",
+            "ref": "f45b5dd173a27873ab19f5e3180b2f661c21de02"
+        },
+        "files": [
+            "config/packages/http_discovery.yaml"
+        ]
+    },
     "phpstan/phpstan": {
         "version": "2.1",
         "recipe": {
@@ -57,6 +69,42 @@
         },
         "files": [
             "phpstan.dist.neon"
+        ]
+    },
+    "symfony/ai-bundle": {
+        "version": "0.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "917b2a3da78a22e9488e99e1847d1f019d18da76"
+        },
+        "files": [
+            "config/packages/ai.yaml"
+        ]
+    },
+    "symfony/ai-chroma-db-store": {
+        "version": "0.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "70b5179ede32bb6faf93f7f521570d3740f5230e"
+        },
+        "files": [
+            "config/packages/ai_chroma_db_store.yaml"
+        ]
+    },
+    "symfony/ai-perplexity-platform": {
+        "version": "0.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "42a5df2dc3e2be26f71bb8d9613b43590a0d13fb"
+        },
+        "files": [
+            "config/packages/ai_perplexity_platform.yaml"
         ]
     },
     "symfony/asset-mapper": {
@@ -180,6 +228,15 @@
             "config/packages/twig.yaml",
             "templates/base.html.twig"
         ]
+    },
+    "symfony/uid": {
+        "version": "8.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "7.0",
+            "ref": "0df5844274d871b37fc3816c57a768ffc60a43a5"
+        }
     },
     "symfony/ux-live-component": {
         "version": "2.32",

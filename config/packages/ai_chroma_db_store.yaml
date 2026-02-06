@@ -1,0 +1,15 @@
+services:
+    Codewithkyrian\ChromaDB\Factory:
+        calls:
+            - withHost: ['%env(CHROMADB_HOST)%']
+
+    Codewithkyrian\ChromaDB\Client:
+        factory: ['@Codewithkyrian\ChromaDB\Factory', 'connect']
+        lazy: true
+
+ai:
+    store:
+        chromadb:
+            default:
+                collection: 'my_collection'
+
