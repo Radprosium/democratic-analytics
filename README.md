@@ -1,51 +1,99 @@
-# Symfony Docker
+# Democratic Analytics
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
+An AI-powered political analysis platform that helps citizens better understand political issues, media coverage, and public debate.
 
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+Built with **Symfony 8.0**, **Symfony AI**, **Perplexity AI**, and **ChromaDB**.
+
+## What It Does
+
+Democratic Analytics uses AI agents to:
+
+- **Retrieve** the latest political news and identify key subjects of the day
+- **Analyze** each subject in depth — context, arguments, actors, stakes
+- **Map media coverage** — track how different outlets cover the same subject, their tone and framing
+- **Track actors** — politicians, parties, institutions, and their positions on each issue
+- **Evolve subjects over time** — update and enrich subjects as new information emerges
+- **Answer questions** — RAG-powered chat interface for natural-language queries about the knowledge base
+
+The goal: help users understand political issues from every angle and make informed decisions.
+
+## Tech Stack
+
+| Layer | Technologies |
+|-------|-------------|
+| **Framework** | Symfony 8.0, PHP 8.4+ |
+| **AI** | Symfony AI Bundle, Perplexity AI (search-augmented LLM) |
+| **Vector DB** | ChromaDB (semantic search & RAG) |
+| **Database** | PostgreSQL 16, Doctrine ORM |
+| **Frontend** | Twig, Turbo, Live Components, Stimulus |
+| **Server** | FrankenPHP + Caddy (Docker) |
 
 ## Getting Started
 
-1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --pull --no-cache` to build fresh images
-3. Run `docker compose up --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+### Prerequisites
 
-## Features
+- [Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
+- A [Perplexity AI API key](https://docs.perplexity.ai/)
 
-- Production, development and CI ready
-- Just 1 service by default
-- Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/)
-- [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-- Automatic HTTPS (in dev and prod)
-- HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-- Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-- [Vulcain](https://vulcain.rocks) support
-- Native [XDebug](docs/xdebug.md) integration
-- Super-readable configuration
+### Setup
 
-**Enjoy!**
+1. Clone the repository
+2. Copy `.env` and configure your API keys:
+   ```bash
+   # Set your Perplexity API key
+   PERPLEXITY_API_KEY=your_key_here
+   ```
+3. Build and start the containers:
+   ```bash
+   make start
+   ```
+4. Open `https://localhost` and accept the auto-generated TLS certificate
 
-## Docs
+### Useful Commands
 
-1. [Options available](docs/options.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
+```bash
+make help       # Show all available commands
+make up         # Start containers
+make down       # Stop containers
+make sh         # Shell into the PHP container
+make sf c=about # Run Symfony console commands
+make logs       # Follow container logs
+```
+
+## Project Documentation
+
+### Project
+
+- [Vision](docs/project/vision.md) — Mission, problem statement, and long-term goals
+- [Architecture](docs/project/architecture.md) — System design, data flow, and entity model
+- [Tech Stack](docs/project/tech-stack.md) — Technologies used and why
+- [AI Agents](docs/project/ai-agents.md) — Agent design, prompts, and tool definitions
+- [Features Roadmap](docs/project/features-roadmap.md) — Phased development plan (MVP → full scale)
+
+### Infrastructure
+
+- [Options available](docs/options.md)
+- [Using Symfony Docker with an existing project](docs/existing-project.md)
+- [Support for extra services](docs/extra-services.md)
+- [Deploying in production](docs/production.md)
+- [Debugging with Xdebug](docs/xdebug.md)
+- [TLS Certificates](docs/tls.md)
+- [Using MySQL instead of PostgreSQL](docs/mysql.md)
+- [Using Alpine Linux instead of Debian](docs/alpine.md)
+- [Using a Makefile](docs/makefile.md)
+- [Updating the template](docs/updating.md)
+- [Troubleshooting](docs/troubleshooting.md)
+
+## Development Status
+
+**Current Phase**: Phase 1 — MVP (News Retrieval & Subject Tracking)
+
+See the [Features Roadmap](docs/project/features-roadmap.md) for the full development plan across 5 phases.
 
 ## License
 
-Symfony Docker is available under the MIT License.
+Available under the MIT License.
 
 ## Credits
 
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+Infrastructure based on [Symfony Docker](https://github.com/dunglas/symfony-docker) by [Kévin Dunglas](https://dunglas.dev).
