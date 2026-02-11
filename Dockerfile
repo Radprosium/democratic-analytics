@@ -20,6 +20,7 @@ VOLUME /app/var/
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	file \
 	git \
+	supervisor \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
@@ -28,6 +29,7 @@ RUN set -eux; \
 		apcu \
 		intl \
 		opcache \
+		redis \
 		zip \
 	;
 
@@ -45,6 +47,10 @@ RUN install-php-extensions pdo_pgsql
 COPY --link frankenphp/conf.d/10-app.ini $PHP_INI_DIR/app.conf.d/
 COPY --link --chmod=755 frankenphp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 COPY --link frankenphp/Caddyfile /etc/frankenphp/Caddyfile
+COPY --link frankenphp/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY --link frankenphp/supervisor/messenger-worker.conf /etc/supervisor/conf.d/messenger-worker.conf
+
+RUN mkdir -p /var/log/supervisor
 
 ENTRYPOINT ["docker-entrypoint"]
 

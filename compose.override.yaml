@@ -30,3 +30,8 @@ services:
     ports:
       - "5432"
 ###< doctrine/doctrine-bundle ###
+
+  neo4j:
+    ports:
+      - "7474:7474"
+      - "7687:7687"

@@ -57,6 +57,13 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		fi
 	fi
 
+	if command -v supervisord >/dev/null 2>&1; then
+		if [ ! -f /var/run/supervisord.pid ] || ! kill -0 "$(cat /var/run/supervisord.pid)" 2>/dev/null; then
+			mkdir -p /var/log/supervisor
+			supervisord -c /etc/supervisor/supervisord.conf
+		fi
+	fi
+
 	echo 'PHP app ready!'
 fi
 

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ subject.title }} — Democratic Analytics{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <nav class="breadcrumb">
+            <a href="{{ path('app_home') }}">Home</a>
+            <span class="breadcrumb-sep">›</span>
+            <a href="{{ path('app_subject_index') }}">Subjects</a>
+            <span class="breadcrumb-sep">›</span>
+            <span>{{ subject.title }}</span>
+        </nav>
+
+        <article class="subject-detail">
+            <header class="subject-detail-header">
+                <div class="subject-detail-meta">
+                    <span class="badge {{ subject.status.badge }}">{{ subject.status.label }}</span>
+                    <span class="meta-category">{{ subject.category.label }}</span>
+                    <span class="importance importance-{{ subject.importance }}">
+                        Importance: {{ subject.importance }}/10
+                    </span>
+                </div>
+                <h1>{{ subject.title }}</h1>
+                <div class="subject-dates">
+                    <span>Created: {{ subject.createdAt|date('F d, Y \\a\\t H:i') }}</span>
+                    <span>Updated: {{ subject.updatedAt|date('F d, Y \\a\\t H:i') }}</span>
+                    {% if subject.lastRetrievedAt %}
+                        <span>Last retrieved: {{ subject.lastRetrievedAt|date('F d, Y \\a\\t H:i') }}</span>
+                    {% endif %}
+                </div>
+            </header>
+
+            <div class="subject-detail-body">
+                <h2>Summary</h2>
+                <div class="subject-summary">
+                    {{ subject.summary|nl2br }}
+                </div>
+            </div>
+
+            {% if subject.sources|length > 0 %}
+                <aside class="subject-sources">
+                    <h2>Sources</h2>
+                    <ul class="source-list">
+                        {% for source in subject.sources %}
+                            <li>
+                                <a href="{{ source }}" target="_blank" rel="noopener noreferrer">
+                                    {{ source }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </aside>
+            {% endif %}
+        </article>
+
+        <div class="back-link">
+            <a href="{{ path('app_subject_index') }}">← Back to all subjects</a>
+        </div>
+    </section>
+{% endblock %}

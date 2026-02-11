@@ -1,0 +1,10 @@
+framework:
+    messenger:
+        default_bus: messenger.bus.default
+        transports:
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            failed: '%env(MESSENGER_FAILED_TRANSPORT_DSN)%'
+        failure_transport: failed
+        routing:
+            # Example routing:
+            # 'App\Message\SomeMessage': async

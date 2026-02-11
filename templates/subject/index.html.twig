@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subjects — Democratic Analytics{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <div class="section-header">
+            <h1>Political Subjects</h1>
+            <p class="section-description">Browse and explore political subjects tracked by Democratic Analytics.</p>
+        </div>
+
+        <div class="filter-bar">
+            <a href="{{ path('app_subject_index') }}"
+               class="filter-chip{% if current_category is null %} active{% endif %}">
+                All
+            </a>
+            {% for cat in categories %}
+                <a href="{{ path('app_subject_index', {category: cat.value}) }}"
+                   class="filter-chip{% if current_category is same as(cat) %} active{% endif %}">
+                    {{ cat.label }}
+                </a>
+            {% endfor %}
+        </div>
+
+        {% if subjects|length > 0 %}
+            <div class="subject-list">
+                {% for subject in subjects %}
+                    <article class="subject-row">
+                        <div class="subject-row-main">
+                            <div class="subject-row-header">
+                                <span class="importance importance-{{ subject.importance }}">
+                                    {{ subject.importance }}
+                                </span>
+                                <h2>
+                                    <a href="{{ path('app_subject_show', {slug: subject.slug}) }}">
+                                        {{ subject.title }}
+                                    </a>
+                                </h2>
+                            </div>
+                            <p class="subject-excerpt">
+                                {{ subject.summary|length > 300 ? subject.summary|slice(0, 300) ~ '...' : subject.summary }}
+                            </p>
+                        </div>
+                        <div class="subject-row-meta">
+                            <span class="badge {{ subject.status.badge }}">{{ subject.status.label }}</span>
+                            <span class="meta-category">{{ subject.category.label }}</span>
+                            <time datetime="{{ subject.updatedAt|date('Y-m-d') }}">
+                                {{ subject.updatedAt|date('M d, Y') }}
+                            </time>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <h2>No subjects found</h2>
+                {% if current_category is not null %}
+                    <p>No subjects in the "{{ current_category.label }}" category.
+                       <a href="{{ path('app_subject_index') }}">View all subjects</a>
+                    </p>
+                {% else %}
+                    <p>
+                        Run <code>make sf c=app:retrieve-news</code> to fetch the latest political subjects.
+                    </p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

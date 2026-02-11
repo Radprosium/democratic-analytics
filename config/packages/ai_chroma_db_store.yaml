@@ -11,5 +11,5 @@ ai:
     store:
         chromadb:
             default:
-                collection: 'my_collection'
+                collection: 'democratic_analytics'
 
